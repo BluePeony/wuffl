@@ -46,11 +46,11 @@ Using your terminal or cmd go to the wuffl folder and once you're there start Wu
 <code> ruby wuffl_linux_all.rb </code> (for linux) or  
 <code> ruby wuffl_win_all.rb </code> (for windows)
 
-Remark: there are two versions of Wuffl image viewer: wuffl_linux/win_all.rb and wuffl_linux/win_single.rb. Both versions are available for Linux as well as vor Windows. Both versions have the same functionalities. Just the way of execution differs a little bit.
+Remark: there are two versions of Wuffl image viewer: <code> wuffl_linux/win_all.rb</code> and <code>wuffl_linux/win_single.rb</code>. Both versions are available for Linux as well as vor Windows. Both versions have the same functionalities. Just the way of execution differs a little bit.
  
-In *_all.rb version as soon as you selected the first image to show the program buffers all images available in that folder.  Pro: you can switch to the next images very quickly. Con: in case your images are quiet big and/or you have a lot of them it may take some time for the program to load all of them. 
+In <code>*_all.rb</code> version as soon as you selected the first image to show the program buffers all images available in that folder.  Pro: you can switch to the next images very quickly. Con: in case your images are quiet big and/or you have a lot of them it may take some time for the program to load all of them. 
 
-In *_single.rb version the program buffers only one image at a time. Pro: you can see the first image quickly. Con: when you click on the „next“ button to see the next picutre it may take a moment before you actually see it in case your image is large/big.   
+In <code>*_single.rb</code> version the program buffers only one image at a time. Pro: you can see the first image quickly. Con: when you click on the „next“ button to see the next picutre it may take a moment before you actually see it in case your image is large/big.   
 
 You may notice the difference only in case of really large images. So just try which version suits you best.
 
