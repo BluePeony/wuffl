@@ -54,7 +54,7 @@ In <code>*_single.rb</code> version the program buffers only one image at a time
 
 You may notice the difference only in case of really large images. So just try which version suits you best.
 
-<strong>3. Usage</strong>
+<strong>3. Usage</strong>  
 After starting Wuffl you'll see a start screen with a line of buttons at the bottom.  
 To select an image go to the top left corner, klick on <code>File</code> → <code>Open file</code> and browse to the location of you images. Then select an image and click <code>open</code> or just doubleclick on the selected image. 
 
