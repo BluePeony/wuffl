@@ -18,13 +18,26 @@ as well as the following gems:
 </ul>  
 <strong>For Linux Ubuntu</strong> you need to download the following files:
 <ul>
-<li>wuffl_functions.rb
-<li>wuffl_linux_all.rb
-<li>wuffl_linux_single.rb
-<li>empty_pic.png
-<li>next.png
-<li>pictureshow.png
-<li>prev.png
-<li>rotate.png
-<li>trash_can.png
+  <li>wuffl_functions.rb
+  <li>wuffl_linux_all.rb
+  <li>wuffl_linux_single.rb
+  <li>empty_pic.png
+  <li>next.png
+  <li>pictureshow.png
+  <li>prev.png
+  <li>rotate.png
+  <li>trash_can.png
+</ul>
+
+<strong>For Windows10 </strong> you need to download the following files:
+<ul>
+  <li>wuffl_functions.rb
+  <li>wuffl_win_all.rb
+  <li>wuff_win_single.rb
+  <li>empty_pic.png
+  <li>next.png
+  <li>pictureshow.png
+  <li>prev.png
+  <li>rotate.png
+  <li>trash_can.png
 </ul>
