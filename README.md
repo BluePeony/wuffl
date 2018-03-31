@@ -46,7 +46,7 @@ Using your terminal or cmd go to the wuffl folder and once you're there start Wu
 <code> ruby wuffl_linux_all.rb </code> (for linux) or  
 <code> ruby wuffl_win_all.rb </code> (for windows)
 
-Remark: there are two versions of Wuffl image viewer: <code> wuffl_linux/win_all.rb</code> and <code>wuffl_linux/win_single.rb</code>. Both versions are available for Linux as well as vor Windows. Both versions have the same functionalities. Just the way of execution differs a little bit.
+__Remark__: there are two versions of Wuffl image viewer: <code> wuffl_linux/win_all.rb</code> and <code>wuffl_linux/win_single.rb</code>. Both versions are available for Linux as well as vor Windows. Both versions have the same functionalities. Just the way of execution differs a little bit.
  
 In <code>*_all.rb</code> version as soon as you selected the first image to show the program buffers all images available in that folder.  Pro: you can switch to the next images very quickly. Con: in case your images are quiet big and/or you have a lot of them it may take some time for the program to load all of them. 
 
