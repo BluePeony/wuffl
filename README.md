@@ -16,7 +16,7 @@ as well as the following gems:
   <li><code>fileutils</code>
   <li><code>gtk3</code>
 </ul>  
-For Linux Ubuntu you need to download the following files:
+<strong>For Linux Ubuntu</strong> you need to download the following files:
 <ul>
 <li>wuffl_functions.rb
 <li>wuffl_linux_all.rb
