@@ -6,7 +6,7 @@ Imagine you review you vacation pictures and you need to select which pictures t
 Source for the icons of the buttons: http://icons.mysitemyway.com  
 
 <strong> 2. Installation </strong>  
-To use the Wuffl image viewer you require:   
+To use the Wuffl image viewer you require:
 <ul>
 <li> <a href="https://www.ruby-lang.org/en/downloads/">ruby</a> (v2.4)
 </ul>
