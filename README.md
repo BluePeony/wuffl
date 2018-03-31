@@ -29,8 +29,7 @@ as well as the following gems:
   <li>trash_can.png
 </ul>
 
-<strong>For Windows10 </strong> you need to download the following files:
-<ul>
+<strong>For Windows10 </strong> you need to download the following files:<ul>
   <li>wuffl_functions.rb
   <li>wuffl_win_all.rb
   <li>wuff_win_single.rb
