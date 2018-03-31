@@ -42,9 +42,9 @@ as well as the following gems:
 </ul>
 
 Create a new folder „wuffl“ where it's most convinient for you and put all downloaded files in that folder.
-Using your terminal or cmd go to the wuffl folder and once you're there start Wuffl by typing
-ruby wuffl_linux_all.rb (for linux)
-ruby wuffl_win_all.rb (for windows)
+Using your terminal or cmd go to the wuffl folder and once you're there start Wuffl by typing  
+<code> ruby wuffl_linux_all.rb </code> (for linux) or  
+<code> ruby wuffl_win_all.rb </code> (for windows)
 
 Remark: there are two versions of Wuffl image viewer: wuffl_linux/win_all.rb and wuffl_linux/win_single.rb. Both versions are available for Linux as well as vor Windows. Both versions have the same functionalities. Just the way of execution differs a little bit.
  
