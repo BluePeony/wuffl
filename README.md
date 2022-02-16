@@ -3,6 +3,7 @@
 Wuffl is a simple image viewer which can move pictures either to a „pictureshow“ folder or to a „delete“ folder. Pictureshow and delete folders are located in the same folder as the chosen picture. Wuffl is available for Linux Ubuntu >=14.04 and Windows10.  
 
 Imagine you review you vacation pictures and you need to select which pictures to show to your friends at the next party or you work your way through a bunch of old pictures and you need to select a view for a anniversary celebration. Wuffl allows you to move the picture to an extra folder (pictureshow folder) or to a delete folder while viewing it.  
+DEMO: https://www.youtube.com/watch?v=upL4r4l4CtI
 Source for the icons of the buttons: http://icons.mysitemyway.com  
 
 <strong> 2. Installation </strong>  
