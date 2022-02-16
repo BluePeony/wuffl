@@ -4,7 +4,7 @@ Wuffl is a simple image viewer which can move pictures either to a „picturesho
 
 Imagine you review you vacation pictures and you need to select which pictures to show to your friends at the next party or you work your way through a bunch of old pictures and you need to select a view for a anniversary celebration. Wuffl allows you to move the picture to an extra folder (pictureshow folder) or to a delete folder while viewing it. 
 <p>
-DEMO: https://www.youtube.com/watch?v=upL4r4l4CtI<br>
+Demo: https://www.youtube.com/watch?v=upL4r4l4CtI<br>
 Source for the icons of the buttons: http://icons.mysitemyway.com  
 </p>
 <strong> 2. Installation </strong>  
