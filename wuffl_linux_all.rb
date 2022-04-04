@@ -30,13 +30,13 @@ pb_current = GdkPixbuf::Pixbuf.new #current pixbuf
 pb_portrait = GdkPixbuf::Pixbuf.new #pixbuf in portrait format (relevant only for rotations)
 img_current = Gtk::Image.new  #current image
 
-dir_path = "" #path of the image folder
+dir_path = "" # Path of the image folder
 pictureshow_path = ""
 deleted_path = ""
 all_orig_img = []
 all_orig_pb = []
 ind = 0
-rotation_case = 'A' #relevant only for rotations
+rotation_case = 'A' # Relevant only for rotations
 filename = ""
 is_landscape = true
 
@@ -145,7 +145,7 @@ open_file.signal_connect("activate") do |w|
 		show_img(img_current, pb_current)
 		window.set_title File.basename filename
 
-		#activate all buttons
+		# Activate all buttons
 		prev_btn.sensitive = true
 		next_btn.sensitive = true
 		rotate_btn.sensitive = true
