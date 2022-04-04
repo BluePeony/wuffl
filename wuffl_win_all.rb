@@ -5,12 +5,12 @@ require_relative 'wuffl_functions.rb'
 
 output_dimensions = `wmic path Win32_VideoController get VideoModeDescription,CurrentVerticalResolution,CurrentHorizontalResolution /format:value`
 
-#Horizontal Resolution of the screen
+# Horizontal Resolution of the screen
 hor_res_begin_index = output_dimensions.index("HorizontalResolution") + "HorizontalResolution=".length
 hor_res_end_index = output_dimensions.index("CurrentVertical") - 3
 hor_res = output_dimensions.slice(hor_res_begin_index..hor_res_end_index).to_i
 
-#Vertical Resolution of the screen
+# Vertical Resolution of the screen
 ver_res_begin_index = output_dimensions.index("VerticalResolution") + "VerticalResolution=".length
 ver_res_end_index = output_dimensions.index("VideoMode") - 3
 ver_res = output_dimensions.slice(ver_res_begin_index..ver_res_end_index).to_i
@@ -30,17 +30,17 @@ window.signal_connect("destroy") {Gtk.main_quit}
 vbox = Gtk::Box.new :vertical, 5
 hbox = Gtk::Box.new :horizontal, 10
 
-pb_current = GdkPixbuf::Pixbuf.new #current pixbuf
-pb_portrait = GdkPixbuf::Pixbuf.new #pixbuf in portrait format (relevant only for rotations)
-img_current = Gtk::Image.new  #current image
+pb_current = GdkPixbuf::Pixbuf.new # Current pixbuf
+pb_portrait = GdkPixbuf::Pixbuf.new # Pixbuf in portrait format (relevant only for rotations)
+img_current = Gtk::Image.new  # Current image
 
-dir_path = "" #path of the image folder
+dir_path = "" # Path of the image folder
 pictureshow_path = ""
 deleted_path = ""
 all_orig_img = []
 all_orig_pb = []
 ind = 0
-rotation_case = 'A' #relevant only for rotations
+rotation_case = 'A' # Relevant only for rotations
 filename = ""
 is_landscape = true
 
@@ -139,7 +139,7 @@ open_file.signal_connect("activate") do |w|
 			FileUtils.chmod 0777, deleted_path
 		end
 
-		#prebuffer of all files
+		# Prebuffer of all files
 		all_orig_img.each do |file|
 			current_filename = dir_path + "/" + file
 			all_orig_pb = prepare_pixbuf(current_filename, all_orig_pb)
@@ -149,7 +149,7 @@ open_file.signal_connect("activate") do |w|
 		show_img(img_current, pb_current)
 		window.set_title File.basename filename
 
-		#activate all buttons
+		# Activate all buttons
 		prev_btn.sensitive = true
 		next_btn.sensitive = true
 		rotate_btn.sensitive = true
@@ -200,10 +200,10 @@ end
 #----------------Rotate-Button------------------
 rotate_btn.signal_connect("clicked") do 
 	
-	if is_landscape == false # original image in portrait format
+	if is_landscape == false # Original image in portrait format
 		pb_current = pb_current.rotate(:clockwise)
 		
-	else #original image in landscape format
+	else # Original image in landscape format
 		if rotation_case == 'A'
 			pb_current = pb_current.rotate(:clockwise)
 			width_pb = pb_current.width
@@ -263,7 +263,7 @@ show_btn.signal_connect("clicked") do
 			show_img(img_current, pb_current)
 			window.set_title just_the_name
 
-			#buffer the next image if not all loaded yet
+			# Buffer the next image if not all loaded yet
 			if all_orig_pb.length != all_orig_img.length
 				current_filename = dir_path + "/" + all_orig_img[ind+1]
 				all_orig_pb = prepare_pixbuf(current_filename, all_orig_pb)
