@@ -1,5 +1,5 @@
-def img_dimensions_fi (filename)
-	#determine the dimensions of the given image with FastImage-gem
+# Determine the dimensions of the given image with FastImage-gem
+def img_dimensions_fi (filename)	
 	img_dim = FastImage.size("#{filename}")	
 	img_orig_width_fi = img_dim[0]
 	img_orig_height_fi = img_dim[1]
@@ -13,8 +13,8 @@ def img_dimensions_fi (filename)
 	fastimage_infos = [is_orig_landscape, img_orig_width_fi.to_i, img_orig_height_fi.to_i]
 end
 
+# Resize the image if too big - for landscape mode
 def landscape_pic(pb_orig, img_width, img_height)
-	#resize the image if too big
 	if img_width > IMG_MAX_W || img_height > IMG_MAX_H
 
 			while img_width > IMG_MAX_W || img_height > IMG_MAX_H do
@@ -30,8 +30,8 @@ def landscape_pic(pb_orig, img_width, img_height)
 	return pb_orig
 end
 
+# Resize the image if too big - for portrait mode
 def portrait_pic(pb_orig, rotate_pic, img_width, img_height)
-	#resize the image if too big
 	if rotate_pic == true
 		pb_orig = pb_orig.rotate(:clockwise)
 		z = img_width
@@ -53,6 +53,7 @@ def portrait_pic(pb_orig, rotate_pic, img_width, img_height)
 		return pb_orig
 end
 
+# Prepare image for loading
 def prepare_pixbuf(filename, array_of_orig_pixbufs)
 	fi_infos = img_dimensions_fi(filename)
 	pixbuf_infos = GdkPixbuf::Pixbuf.get_file_info(filename)
@@ -81,12 +82,13 @@ def prepare_pixbuf(filename, array_of_orig_pixbufs)
 	return array_of_orig_pixbufs
 end
 
+# Display the current image
 def show_img(img_curr, pb_curr)
-	#display current image
 	img_curr.set_pixbuf(pb_curr)
 	
 end
 
+# Set the index for the next image
 def set_next_index(index, img_array)
 	if (index + 1) <= (img_array.length - 1)
 		index += 1
@@ -96,6 +98,7 @@ def set_next_index(index, img_array)
 	return index
 end
 
+# Set the index for the previous image
 def set_prev_index(index, img_array)
 	if (index - 1) < 0
 		index = img_array.length - 1
