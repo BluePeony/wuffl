@@ -3,7 +3,7 @@ require 'fileutils'
 require 'fastimage'
 require_relative 'wuffl_functions.rb'
 
-#finding out the current resolution
+# Find out the current resolution of the display
 output_dimensions = `xdpyinfo | grep dimensions`
 output_dimensions.tr!(" ","")
 start_index = output_dimensions.index(":") + 1
@@ -135,7 +135,7 @@ open_file.signal_connect("activate") do |w|
 			FileUtils.chmod 0777, deleted_path
 		end
 
-		#prebuffer of all files
+		# Prebuffer of all files
 		all_orig_img.each do |file|
 			current_filename = dir_path + "/" + file
 			all_orig_pb = prepare_pixbuf(current_filename, all_orig_pb)
@@ -196,10 +196,10 @@ end
 #----------------Rotate-Button------------------
 rotate_btn.signal_connect("clicked") do 
 	
-	if is_landscape == false # original image in portrait format
+	if is_landscape == false # Original image in portrait format
 		pb_current = pb_current.rotate(:clockwise)
 		
-	else #original image in landscape format
+	else # Original image in landscape format
 		if rotation_case == 'A'
 			pb_current = pb_current.rotate(:clockwise)
 			width_pb = pb_current.width
@@ -259,7 +259,7 @@ show_btn.signal_connect("clicked") do
 			show_img(img_current, pb_current)
 			window.set_title just_the_name
 
-			#buffer the next image if not all loaded yet
+			# Buffer the next image if not all loaded yet
 			if all_orig_pb.length != all_orig_img.length
 				current_filename = dir_path + "/" + all_orig_img[ind+1]
 				all_orig_pb = prepare_pixbuf(current_filename, all_orig_pb)
