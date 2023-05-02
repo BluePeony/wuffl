@@ -1,4 +1,5 @@
 require 'gtk3'
+require_relative 'image_actions'
 
 module Actions
 
@@ -14,7 +15,9 @@ module Actions
 	end
 
 	# get the resolution of the display
-	def self.get_resolution(operating_system)
+	def self.get_resolution
+
+    operating_system = get_op_sys
 
 		case operating_system
 			
@@ -48,29 +51,6 @@ module Actions
 		return [win_width, win_height]
 	end
 
-  def self.define_img_parameters(win_width, win_height)
-    pb_current, pb_portrait = BasicElements.define_pixbuf
-
-    img_parameters = {
-      dir_path: "", # path of the image folder
-      pictureshow_path: "", 
-      deleted_path: "", 
-      name: "",
-      rotation_case: 'A',
-      ind: 0,      
-      is_landscape: true, 
-      all_orig_img: [],
-      all_orig_pb: [],
-      pb_current: pb_current,
-      pb_portrait: pb_portrait,
-      img_current: Gtk::Image.new, # current image
-      img_max_w: (win_width * 0.37).to_i, # max width for each image
-      img_max_h: (win_height * 0.37).to_i , # max height for each image
-      reduction_factor: 0.95
-    }
-    return img_parameters
-  end
-
   # pack the boxes for the GUI
 	def self.pack_boxes(window, img_current, box_set, button_set)
     box_set[:hbox].add button_set[:prev_btn]
@@ -84,105 +64,10 @@ module Actions
     box_set[:vbox].pack_start img_current, :expand => true, :fill => true, :padding => 5
     box_set[:vbox].pack_start box_set[:halign], :expand => false, :fill => false, :padding => 5
 
-
-    #@vbox.pack_start @mb, :expand => false, :fill => false, :padding => 5
-    #@vbox.pack_start @img_current, :expand => true, :fill => true, :padding => 5
-    #@vbox.pack_start @halign, :expand=> false, :fill => false, :padding => 5
-
     window.add box_set[:vbox]
 
     return box_set
   end
-
-	# determine the dimensions of the given image with FastImage-gem
-	def self.img_dimensions_fi (filename)	
-		img_dim = FastImage.size("#{filename}")	
-		img_orig_width_fi = img_dim[0]
-		img_orig_height_fi = img_dim[1]
-
-		if img_orig_width_fi > img_orig_height_fi
-			is_orig_landscape = true
-		else
-			is_orig_landscape = false
-		end
-
-		fastimage_infos = [is_orig_landscape, img_orig_width_fi.to_i, img_orig_height_fi.to_i]
-	end
-
-	# resize the image if too big - for landscape mode
-	def self.landscape_pic(pb_orig, img_width, img_height, img_max_w, img_max_h, reduction_factor)
-		if img_width > img_max_w || img_height > img_max_h
-
-				while img_width > img_max_w || img_height > img_max_h do
-					img_width *= reduction_factor
-					img_height *= reduction_factor
-				end
-		end
-
-		img_width = img_width.to_i
-		img_height = img_height.to_i
-
-		pb_orig = pb_orig.scale(img_width, img_height, :bilinear)
-		return pb_orig
-	end
-
-	# resize the image if too big - for portrait mode
-	def self.portrait_pic(pb_orig, rotate_pic, img_width, img_height, img_max_h, reduction_factor)
-		if rotate_pic == true
-			pb_orig = pb_orig.rotate(:clockwise)
-			z = img_width
-			img_width = img_height
-			img_height = z
-		end
-
-		if img_height > img_max_h
-			while img_height > img_max_h do
-				img_width *= reduction_factor
-				img_height *= reduction_factor
-			end
-		end	
-		
-			img_height = img_height.to_i
-			img_width = img_width.to_i
-
-			pb_orig = pb_orig.scale(img_width, img_height, :bilinear)
-			return pb_orig
-	end
-
-	# prepare image for loading
-	def self.prepare_pixbuf(filename, array_of_orig_pixbufs, img_max_w, img_max_h, reduction_factor)
-		fi_infos = self.img_dimensions_fi(filename)
-		pixbuf_infos = GdkPixbuf::Pixbuf.get_file_info(filename)
-		is_landscape = fi_infos[0]
-		pixbuf_width = pixbuf_infos[1]
-		pixbuf_height = pixbuf_infos[2]
-
-		img_width = pixbuf_width
-		img_height = pixbuf_height
-
-		pb_orig = GdkPixbuf::Pixbuf.new :file => filename, :width => img_width, :height => img_height
-
-		if fi_infos[1] > fi_infos[2] #landscape format
-			pb_orig = self.landscape_pic(pb_orig, img_width, img_height, img_max_w, img_max_h, reduction_factor)
-		else #portrait format
-			if (fi_infos[1] == pixbuf_infos[1]) && (fi_infos[2] == pixbuf_infos[2])
-				rotate_pic = false
-			else
-				rotate_pic = true
-			end 
-			pb_orig = portrait_pic(pb_orig, rotate_pic, img_width, img_height, img_max_h, reduction_factor)
-		end
-
-		array_of_orig_pixbufs << pb_orig
-
-		return [array_of_orig_pixbufs, is_landscape]
-	end
-
-	# display the current image
-	def self.show_img(img_curr, pb_curr)
-		img_curr.set_pixbuf(pb_curr)
-		
-	end
 
 	# set the index for the next image
 	def self.set_next_index(index, img_array)
@@ -215,8 +100,6 @@ module Actions
   def self.open_file_action(window, img_parameters, button_set)
     dialog = Gtk::FileChooserDialog.new(:title => "Open file", :parent => window, :action => Gtk::FileChooserAction::OPEN, 
         :buttons => [[Gtk::Stock::OPEN, Gtk::ResponseType::ACCEPT], [Gtk::Stock::CANCEL, Gtk::ResponseType::CANCEL]])
-
-    #img_parameters = Actions.define_img_parameters(win_width, win_height)
 
     if dialog.run == Gtk::ResponseType::ACCEPT
       filename = dialog.filename
@@ -254,11 +137,11 @@ module Actions
         # Prebuffer of all files
         img_parameters[:all_orig_img].each do |file|
           current_filename = img_parameters[:dir_path] + "/" + file
-          img_parameters[:all_orig_pb], img_parameters[:is_landscape] = Actions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
+          img_parameters[:all_orig_pb], img_parameters[:is_landscape] = ImageActions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
         end
         img_parameters[:pb_current] = img_parameters[:all_orig_pb][img_parameters[:ind]]
 
-        Actions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
+        ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
         window.set_title File.basename filename
 
         # Activate all buttons
@@ -280,9 +163,9 @@ module Actions
       img_parameters[:ind] = Actions.set_next_index(img_parameters[:ind], img_parameters[:all_orig_img])
     end    
     filename = img_parameters[:dir_path] + "/" + img_parameters[:all_orig_img][img_parameters[:ind]]
-    img_parameters[:is_landscape] = Actions.img_dimensions_fi(filename)[0]
+    img_parameters[:is_landscape] = ImageActions.img_dimensions_fi(filename)[0]
     img_parameters[:pb_current] = img_parameters[:all_orig_pb][img_parameters[:ind]]
-    Actions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
+    ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
     window.set_title File.basename filename
 
     return img_parameters
@@ -353,16 +236,16 @@ module Actions
 
         just_the_name = img_parameters[:all_orig_img][img_parameters[:ind]]
         filename = img_parameters[:dir_path] + "/" + just_the_name
-        img_parameters[:is_landscape] = Actions.img_dimensions_fi(filename)[0]
+        img_parameters[:is_landscape] = ImageActions.img_dimensions_fi(filename)[0]
         img_parameters[:pb_current] = img_parameters[:all_orig_pb][img_parameters[:ind]]
-        Actions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
+        ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
         window.set_title just_the_name
 
         if select_delete_par == "select"
           # Buffer the next image if not all loaded yet
           if img_parameters[:all_orig_pb].length != img_parameters[:all_orig_img].length
             current_filename = img_parameters[:dir_path] + "/" + img_parameters[:all_orig_img][img_parameters[:ind]+1]
-            img_parameters[:all_orig_pb], img_parameters[:is_landscape]  = Actions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
+            img_parameters[:all_orig_pb], img_parameters[:is_landscape]  = ImageActions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
           end
         end
       else

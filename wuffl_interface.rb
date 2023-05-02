@@ -8,11 +8,8 @@ class WufflInterface
 
   def initialize
 
-    # determine the OS
-    @operating_system = Actions.get_op_sys
-
     # get the screen resolution
-    @win_width, @win_height = Actions.get_resolution(@operating_system)
+    @win_width, @win_height = Actions.get_resolution
 
     # define the window
     @window = BasicElements.define_window(@win_width, @win_height)
@@ -20,13 +17,13 @@ class WufflInterface
     # define the boxes
     @vbox, @hbox = BasicElements.define_boxes
 
-    # prepare the pixel butter
-    pb_current, pb_portrait = BasicElements.define_pixbuf
+    # prepare the current image
+    @img_current = Gtk::Image.new
 
     @halign = Gtk::Alignment.new 0.5, 0, 0, 0
 
     # define image parameters
-    @img_parameters = Actions.define_img_parameters(@win_width, @win_height)
+    @img_parameters = BasicElements.define_img_parameters(@win_width, @win_height, @img_current)
 
     # define buttons
     @button_set = BasicElements.define_buttons
@@ -45,6 +42,7 @@ class WufflInterface
 
     # open file action
     @open_file.signal_connect("activate") do |w|
+      @img_parameters = BasicElements.define_img_parameters(@win_width, @win_height, @img_current)
       @img_parameters = Actions.open_file_action(@window, @img_parameters, @button_set)
     end
 
@@ -78,12 +76,9 @@ class WufflInterface
     @quit.signal_connect("activate") {Gtk.main_quit}
 
      # pack the boxes
-    puts "Before the packing of the boxes"
     @box_set = Actions.pack_boxes(@window, @img_parameters[:img_current], @box_set, @button_set)
-    puts "After the packing of the boxes and before window.show_all"
 
     @window.show_all
-    puts "After window.show_all and before Gtk.main"
     Gtk.main
   end
 end

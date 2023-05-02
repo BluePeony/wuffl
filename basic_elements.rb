@@ -92,4 +92,28 @@ module BasicElements
 
     return [mb, open_file, quit]
   end
+
+  # define the image parameters
+  def self.define_img_parameters(win_width, win_height, img_current)
+    pb_current, pb_portrait = BasicElements.define_pixbuf
+
+    img_parameters = {
+      dir_path: "", # path of the image folder
+      pictureshow_path: "", 
+      deleted_path: "", 
+      name: "",
+      rotation_case: 'A',
+      ind: 0,      
+      is_landscape: true, 
+      all_orig_img: [],
+      all_orig_pb: [],
+      pb_current: pb_current,
+      pb_portrait: pb_portrait,
+      img_current: img_current, # current image
+      img_max_w: (win_width * 0.37).to_i, # max width for each image
+      img_max_h: (win_height * 0.37).to_i , # max height for each image
+      reduction_factor: 0.95
+    }
+    return img_parameters
+  end
 end
