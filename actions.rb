@@ -62,7 +62,8 @@ module Actions
 
     box_set[:vbox].pack_start box_set[:mb], :expand => false, :fill => false, :padding => 5
     box_set[:vbox].pack_start img_current, :expand => true, :fill => true, :padding => 5
-    box_set[:vbox].pack_start box_set[:halign], :expand => false, :fill => false, :padding => 5
+    box_set[:vbox].pack_start box_set[:halign], :expand => false, :fill => false, :padding => 5   
+    
 
     window.add box_set[:vbox]
 
@@ -133,7 +134,8 @@ module Actions
         Dir.mkdir(img_parameters[:deleted_path])
         FileUtils.chmod 0777, img_parameters[:deleted_path]
       end
-
+        puts "Open File Action - all_orig_img"
+        p img_parameters[:all_orig_img]
         # Prebuffer of all files
         img_parameters[:all_orig_img].each do |file|
           current_filename = img_parameters[:dir_path] + "/" + file

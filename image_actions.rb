@@ -3,6 +3,8 @@ module ImageActions
   # determine the dimensions of the given image with FastImage-gem
   def self.img_dimensions_fi (filename) 
     img_dim = FastImage.size("#{filename}") 
+    puts "FastImage.size:"
+    p img_dim
     img_orig_width_fi = img_dim[0]
     img_orig_height_fi = img_dim[1]
 
