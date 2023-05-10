@@ -3,6 +3,7 @@ require_relative 'actions'
 require 'gtk3'
 require 'fileutils'
 require 'fastimage'
+require 'stringio'
 
 class WufflInterface
 

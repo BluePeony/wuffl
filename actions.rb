@@ -1,4 +1,3 @@
-require 'gtk3'
 require_relative 'image_actions'
 
 module Actions
@@ -134,27 +133,29 @@ module Actions
         Dir.mkdir(img_parameters[:deleted_path])
         FileUtils.chmod 0777, img_parameters[:deleted_path]
       end
-        puts "Open File Action - all_orig_img"
-        p img_parameters[:all_orig_img]
-        # Prebuffer of all files
-        img_parameters[:all_orig_img].each do |file|
-          current_filename = img_parameters[:dir_path] + "/" + file
-          img_parameters[:all_orig_pb], img_parameters[:is_landscape] = ImageActions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
+
+      # Prebuffer of all files
+      img_parameters[:all_orig_img].each do |file|
+        current_filename = img_parameters[:dir_path] + "/" + file
+        if current_filename.include?("\\")
+          current_filename.gsub!("\\", "/")
         end
-        img_parameters[:pb_current] = img_parameters[:all_orig_pb][img_parameters[:ind]]
-
-        ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
-        window.set_title File.basename filename
-
-        # Activate all buttons
-        button_set.each do |button, sens_value|
-          button_set[button].sensitive = true
-        end
-
+        img_parameters[:all_orig_pb], img_parameters[:is_landscape] = ImageActions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
       end
-      dialog.destroy
+      img_parameters[:pb_current] = img_parameters[:all_orig_pb][img_parameters[:ind]]
 
-      return img_parameters
+      ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
+      window.set_title File.basename filename
+
+      # Activate all buttons
+      button_set.each do |button, sens_value|
+        button_set[button].sensitive = true
+      end
+
+    end
+    dialog.destroy
+
+    return img_parameters
   end
 
   # action when the "previous image" button or the "next image" button is clicked
