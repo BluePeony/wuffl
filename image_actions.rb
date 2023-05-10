@@ -3,8 +3,6 @@ module ImageActions
   # determine the dimensions of the given image with FastImage-gem
   def self.img_dimensions_fi (filename) 
     img_dim = FastImage.size("#{filename}") 
-    puts "FastImage.size:"
-    p img_dim
     img_orig_width_fi = img_dim[0]
     img_orig_height_fi = img_dim[1]
 
@@ -20,7 +18,6 @@ module ImageActions
   # resize the image if too big - for landscape mode
   def self.landscape_pic(pb_orig, img_width, img_height, img_max_w, img_max_h, reduction_factor)
     if img_width > img_max_w || img_height > img_max_h
-
         while img_width > img_max_w || img_height > img_max_h do
           img_width *= reduction_factor
           img_height *= reduction_factor
@@ -29,7 +26,6 @@ module ImageActions
 
     img_width = img_width.to_i
     img_height = img_height.to_i
-
     pb_orig = pb_orig.scale(img_width, img_height, :bilinear)
     return pb_orig
   end
@@ -69,7 +65,6 @@ module ImageActions
     img_height = pixbuf_height
 
     pb_orig = GdkPixbuf::Pixbuf.new :file => filename, :width => img_width, :height => img_height
-
     if fi_infos[1] > fi_infos[2] #landscape format
       pb_orig = ImageActions.landscape_pic(pb_orig, img_width, img_height, img_max_w, img_max_h, reduction_factor)
     else #portrait format
@@ -82,7 +77,6 @@ module ImageActions
     end
 
     array_of_orig_pixbufs << pb_orig
-
     return [array_of_orig_pixbufs, is_landscape]
   end
 

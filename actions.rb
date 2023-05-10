@@ -22,6 +22,24 @@ module Actions
 			
 		when 'windows'
 			output_dimensions = `wmic path Win32_VideoController get VideoModeDescription,CurrentVerticalResolution,CurrentHorizontalResolution /format:value`
+      begin_hor_res = output_dimensions.index("HorizontalResolution")
+      begin_ver_res = output_dimensions.index("VerticalResolution")
+      begin_video_mode = output_dimensions.index("VideoMode")
+      length_hor = "HorizontalResolution=".length
+      length_ver = "VerticalResolution=".length
+      length_video = "VideoMode=".length
+      char_hor = output_dimensions[begin_hor_res + length_hor]
+      char_ver = output_dimensions[begin_ver_res + length_ver]
+      char_video = output_dimensions[begin_video_mode + length_video]
+      if char_hor != char_hor.to_i.to_s
+        output_dimensions.sub!("HorizontalResolution", "")
+      end
+      if char_ver != char_ver.to_i.to_s
+        output_dimensions.sub!("VerticalResolution", "")
+      end
+      if char_video != char_video.to_i.to_s
+        output_dimensions.sub!("VideoMode", "")
+      end
 
 			# Horizontal Resolution of the screen
 			hor_res_begin_index = output_dimensions.index("HorizontalResolution") + "HorizontalResolution=".length

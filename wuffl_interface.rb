@@ -13,7 +13,7 @@ class WufflInterface
     @win_width, @win_height = Actions.get_resolution
 
     # define the window
-    @window = BasicElements.define_window(@win_width, @win_height)
+    @window = BasicElements.define_window(@win_width*0.45, @win_height*0.45)
 
     # define the boxes
     @vbox, @hbox = BasicElements.define_boxes
