@@ -159,11 +159,11 @@ module Wuffl
           if current_filename.include?("\\")
             current_filename.gsub!("\\", "/")
           end
-          img_parameters[:all_orig_pb], img_parameters[:is_landscape] = Wuffl::ImageActions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
+          img_parameters[:all_orig_pb], img_parameters[:is_landscape] = ImageActions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
         end
         img_parameters[:pb_current] = img_parameters[:all_orig_pb][img_parameters[:ind]]
 
-        Wuffl::ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
+        ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
         window.set_title File.basename filename
 
         # Activate all buttons
@@ -185,9 +185,9 @@ module Wuffl
         img_parameters[:ind] = set_next_index(img_parameters[:ind], img_parameters[:all_orig_img])
       end    
       filename = img_parameters[:dir_path] + "/" + img_parameters[:all_orig_img][img_parameters[:ind]]
-      img_parameters[:is_landscape] = Wuffl::ImageActions.img_dimensions_fi(filename)[0]
+      img_parameters[:is_landscape] = ImageActions.img_dimensions_fi(filename)[0]
       img_parameters[:pb_current] = img_parameters[:all_orig_pb][img_parameters[:ind]]
-      Wuffl::ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
+      ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
       window.set_title File.basename filename
 
       return img_parameters
@@ -258,16 +258,16 @@ module Wuffl
 
           just_the_name = img_parameters[:all_orig_img][img_parameters[:ind]]
           filename = img_parameters[:dir_path] + "/" + just_the_name
-          img_parameters[:is_landscape] = Wuffl::ImageActions.img_dimensions_fi(filename)[0]
+          img_parameters[:is_landscape] = ImageActions.img_dimensions_fi(filename)[0]
           img_parameters[:pb_current] = img_parameters[:all_orig_pb][img_parameters[:ind]]
-          Wuffl::ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
+          ImageActions.show_img(img_parameters[:img_current], img_parameters[:pb_current])
           window.set_title just_the_name
 
           if select_delete_par == "select"
             # Buffer the next image if not all loaded yet
             if img_parameters[:all_orig_pb].length != img_parameters[:all_orig_img].length
               current_filename = img_parameters[:dir_path] + "/" + img_parameters[:all_orig_img][img_parameters[:ind]+1]
-              img_parameters[:all_orig_pb], img_parameters[:is_landscape]  = Wuffl::ImageActions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
+              img_parameters[:all_orig_pb], img_parameters[:is_landscape]  = ImageActions.prepare_pixbuf(current_filename, img_parameters[:all_orig_pb], img_parameters[:img_max_w], img_parameters[:img_max_h], img_parameters[:reduction_factor])
             end
           end
         else
