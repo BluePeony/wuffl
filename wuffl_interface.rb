@@ -1,9 +1,9 @@
-require_relative 'basic_elements'
-require_relative 'actions'
 require 'gtk3'
 require 'fileutils'
 require 'fastimage'
 require 'stringio'
+require_relative 'basic_elements'
+require_relative 'actions'
 
 class WufflInterface
 
@@ -63,15 +63,15 @@ class WufflInterface
       @img_parameters = Actions.rotate_btn_action(@img_parameters)
     end
 
-    # pictureshow button action
-    @button_set[:show_btn].signal_connect("clicked") do
-      @img_parameters = Actions.show_delete_btn_action(@window, @img_parameters, @button_set, "select")
+    # select button action
+    @button_set[:select_btn].signal_connect("clicked") do
+      @img_parameters = Actions.select_delete_btn_action(@window, @img_parameters, @button_set, "select")
       
     end
 
     # delete button action
     @button_set[:delete_btn].signal_connect("clicked") do
-      @img_parameters = Actions.show_delete_btn_action(@window, @img_parameters, @button_set, "delete")
+      @img_parameters = Actions.select_delete_btn_action(@window, @img_parameters, @button_set, "delete")
     end
 
     @quit.signal_connect("activate") {Gtk.main_quit}

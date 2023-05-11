@@ -72,7 +72,7 @@ module Actions
 	def self.pack_boxes(window, img_current, box_set, button_set)
     box_set[:hbox].add button_set[:prev_btn]
     box_set[:hbox].add button_set[:rotate_btn]
-    box_set[:hbox].add button_set[:show_btn]
+    box_set[:hbox].add button_set[:select_btn]
     box_set[:hbox].add button_set[:next_btn]
     box_set[:hbox].add button_set[:delete_btn]
     box_set[:halign].add box_set[:hbox]
@@ -122,7 +122,7 @@ module Actions
     if dialog.run == Gtk::ResponseType::ACCEPT
       filename = dialog.filename
       img_parameters[:dir_path] = File.dirname(filename)
-      img_parameters[:pictureshow_path] = img_parameters[:dir_path] + "/Pictureshow"
+      img_parameters[:selected_path] = img_parameters[:dir_path] + "/Selected"
       img_parameters[:deleted_path] = img_parameters[:dir_path] + "/Deleted"
       all_files = Dir.entries(img_parameters[:dir_path])
       accepted_formats = [".jpg", ".JPG", ".png", ".PNG", ".gif", ".GIF"]
@@ -142,9 +142,9 @@ module Actions
         end
       end
 
-      if File.directory?(img_parameters[:pictureshow_path]) == false
-        Dir.mkdir(img_parameters[:pictureshow_path])
-        FileUtils.chmod 0777, img_parameters[:pictureshow_path]
+      if File.directory?(img_parameters[:selected_path]) == false
+        Dir.mkdir(img_parameters[:selected_path])
+        FileUtils.chmod 0777, img_parameters[:selected_path]
       end
 
       if File.directory?(img_parameters[:deleted_path]) == false
@@ -235,13 +235,13 @@ module Actions
   end
   
   # action for the select and delete buttons
-  def self.show_delete_btn_action(window, img_parameters, button_set, select_delete_par)
+  def self.select_delete_btn_action(window, img_parameters, button_set, select_delete_par)
     if img_parameters[:all_orig_img].length > 0
 
       just_the_name = img_parameters[:all_orig_img][img_parameters[:ind]]
       current_location = img_parameters[:dir_path] + "/" + just_the_name
       if select_delete_par == "select"
-        new_location = img_parameters[:pictureshow_path] + "/" + just_the_name
+        new_location = img_parameters[:selected_path] + "/" + just_the_name
       elsif select_delete_par == "delete"
         new_location = img_parameters[:deleted_path] + "/" + just_the_name
       end

@@ -34,13 +34,13 @@ module BasicElements
     prev_pb = GdkPixbuf::Pixbuf.new :file => "prev.png", :width => 50, :height => 50
     next_pb = GdkPixbuf::Pixbuf.new :file => "next.png", :width => 50, :height => 50
     rotate_pb = GdkPixbuf::Pixbuf.new :file => "rotate.png", :width => 50, :height => 50
-    picshow_pb = GdkPixbuf::Pixbuf.new :file => "pictureshow.png", :width => 50, :height => 50
+    select_pb = GdkPixbuf::Pixbuf.new :file => "selected.png", :width => 50, :height => 50
     delete_pb = GdkPixbuf::Pixbuf.new :file => "trash_can.png", :width => 50, :height => 50
 
     prev_img = Gtk::Image.new :pixbuf => prev_pb
     next_img = Gtk::Image.new :pixbuf => next_pb
     rotate_img = Gtk::Image.new :pixbuf => rotate_pb
-    picshow_img = Gtk::Image.new :pixbuf => picshow_pb
+    select_img = Gtk::Image.new :pixbuf => select_pb
     delete_img = Gtk::Image.new :pixbuf => delete_pb
 
     #-----------Previous-Button----------------------
@@ -61,11 +61,11 @@ module BasicElements
     rotate_btn.set_tooltip_text "rotate image"
     rotate_btn.sensitive = false
 
-    #-----------Pictureshow-Button-----------------
-    show_btn = Gtk::Button.new
-    show_btn.set_image(picshow_img)
-    show_btn.set_tooltip_text "add image to pictureshow"
-    show_btn.sensitive = false
+    #-----------Select-Button-----------------
+    select_btn = Gtk::Button.new
+    select_btn.set_image(select_img)
+    select_btn.set_tooltip_text "select the image"
+    select_btn.sensitive = false
 
     #-----------Delete-Button---------------------
     delete_btn = Gtk::Button.new
@@ -73,7 +73,7 @@ module BasicElements
     delete_btn.set_tooltip_text "delete image"
     delete_btn.sensitive = false
 
-    return {prev_btn: prev_btn, next_btn: next_btn, rotate_btn: rotate_btn, show_btn: show_btn, delete_btn: delete_btn}
+    return {prev_btn: prev_btn, next_btn: next_btn, rotate_btn: rotate_btn, select_btn: select_btn, delete_btn: delete_btn}
   end
 
   # define the menu
@@ -99,7 +99,7 @@ module BasicElements
 
     img_parameters = {
       dir_path: "", # path of the image folder
-      pictureshow_path: "", 
+      selected_path: "", 
       deleted_path: "", 
       name: "",
       rotation_case: 'A',
