@@ -31,46 +31,35 @@ module Wuffl
     # define the necessary buttons
     def self.define_buttons
       #-----------Definition of Buttons ----------
-      prev_pb = GdkPixbuf::Pixbuf.new :file => "prev.png", :width => 50, :height => 50
-      next_pb = GdkPixbuf::Pixbuf.new :file => "next.png", :width => 50, :height => 50
-      rotate_pb = GdkPixbuf::Pixbuf.new :file => "rotate.png", :width => 50, :height => 50
-      select_pb = GdkPixbuf::Pixbuf.new :file => "selected.png", :width => 50, :height => 50
-      delete_pb = GdkPixbuf::Pixbuf.new :file => "trash_can.png", :width => 50, :height => 50
-
-      prev_img = Gtk::Image.new :pixbuf => prev_pb
-      next_img = Gtk::Image.new :pixbuf => next_pb
-      rotate_img = Gtk::Image.new :pixbuf => rotate_pb
-      select_img = Gtk::Image.new :pixbuf => select_pb
-      delete_img = Gtk::Image.new :pixbuf => delete_pb
 
       #-----------Previous-Button----------------------
       prev_btn = Gtk::Button.new 
-      prev_btn.set_image(prev_img)
-      prev_btn.set_tooltip_text "previous image"
+      prev_btn.label = "Previous"
+      prev_btn.set_tooltip_text "Previous image"
       prev_btn.sensitive = false
 
       #-----------Next-Button-----------------------
       next_btn = Gtk::Button.new
-      next_btn.set_image(next_img)
-      next_btn.set_tooltip_text "next image"
+      next_btn.label = "Next"
+      next_btn.set_tooltip_text "Next image"
       next_btn.sensitive = false
 
       #-----------Rotate-Button----------------------
       rotate_btn = Gtk::Button.new
-      rotate_btn.set_image(rotate_img)
-      rotate_btn.set_tooltip_text "rotate image"
+      rotate_btn.label = "Rotate"
+      rotate_btn.set_tooltip_text "Rotate image"
       rotate_btn.sensitive = false
 
       #-----------Select-Button-----------------
       select_btn = Gtk::Button.new
-      select_btn.set_image(select_img)
-      select_btn.set_tooltip_text "select the image"
+      select_btn.label = "Move to \"Selected\""
+      select_btn.set_tooltip_text "Move the image to the \"Selected\" folder"
       select_btn.sensitive = false
 
       #-----------Delete-Button---------------------
       delete_btn = Gtk::Button.new
-      delete_btn.set_image(delete_img)
-      delete_btn.set_tooltip_text "delete image"
+      delete_btn.label = "Move to \"Deleted\""
+      delete_btn.set_tooltip_text "Move the image to the \"Deleted\" folder"
       delete_btn.sensitive = false
 
       return {prev_btn: prev_btn, next_btn: next_btn, rotate_btn: rotate_btn, select_btn: select_btn, delete_btn: delete_btn}

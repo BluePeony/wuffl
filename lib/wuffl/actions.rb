@@ -5,6 +5,8 @@ module Wuffl
 
   	# get the operating system of the machine
   	def self.get_op_sys
+      gempath = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+      gempath.sub!("/lib", "")
   		if (/darwin/ =~ RUBY_PLATFORM) != nil
   			return 'mac'
   		elsif (/linux/ =~ RUBY_PLATFORM) != nil
@@ -72,10 +74,11 @@ module Wuffl
     # pack the boxes for the GUI
   	def self.pack_boxes(window, img_current, box_set, button_set)
       box_set[:hbox].add button_set[:prev_btn]
-      box_set[:hbox].add button_set[:rotate_btn]
       box_set[:hbox].add button_set[:select_btn]
-      box_set[:hbox].add button_set[:next_btn]
+      box_set[:hbox].add button_set[:rotate_btn]
       box_set[:hbox].add button_set[:delete_btn]
+      box_set[:hbox].add button_set[:next_btn]
+      
       box_set[:halign].add box_set[:hbox]
 
       box_set[:vbox].pack_start box_set[:mb], :expand => false, :fill => false, :padding => 5
@@ -271,12 +274,12 @@ module Wuffl
             end
           end
         else
-          img_parameters[:pb_current] = GdkPixbuf::Pixbuf.new :file => "empty_pic.png"
+          img_parameters[:pb_current] = GdkPixbuf::Pixbuf.new
           img_parameters[:img_current].set_pixbuf(img_parameters[:pb_current])
           deactivate_buttons(button_set)
         end
-      else 
-        img_parameters[:pb_current] = GdkPixbuf::Pixbuf.new :file => "empty_pic.png"
+      else
+        img_parameters[:pb_current] = GdkPixbuf::Pixbuf.new
         img_parameters[:img_current].set_pixbuf(img_parameters[:pb_current])
         deactivate_buttons(button_set)
       end
