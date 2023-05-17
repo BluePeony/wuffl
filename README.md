@@ -8,6 +8,7 @@ Imagine you review you vacation photographs and you need to select which picture
 To use the Wuffl image viewer you require:
 <ul>
   <li> <a href="https://www.ruby-lang.org/en/downloads/"><code>ruby</code></a> (v2.4)
+    <li><a href="https://rubygems.org/pages/download">RubyGems packet manager</a></li>
 </ul>
 as well as the following Ruby gems:  
 <ul>
