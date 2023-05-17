@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
   s.name         = "wuffl"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.author       = "BluePeony"
   s.email        = "blue.peony2314@gmail.com"
   s.homepage     = "https://github.com/BluePeony/wuffl"
   s.summary      = "image viewer with options to put an image either to the folder 'Selected' or the folder 'Deleted' to preselect them for further use"
-  s.description  = File.read(File.join(File.dirname(__FILE__), 'README'))
+  s.description  = File.read(File.join(File.dirname(__FILE__), 'README.md'))
   s.licenses     = ['MIT']
 
-  s.files         = Dir["{bin,lib}/**/*"] + %w(LICENSE README)
+  s.files         = Dir["{bin,lib}/**/*"] + %w(LICENSE README.md)
   s.executables   = [ 'wuffl' ]
 
   s.required_ruby_version = '>=1.9'
